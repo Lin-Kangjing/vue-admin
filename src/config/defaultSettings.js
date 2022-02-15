@@ -24,7 +24,7 @@ export default {
   menu: {
     locale: true
   },
-  title: 'DTSM',
+  title: '点易运维',
   pwa: false,
   iconfontUrl: '',
   /**

@@ -168,10 +168,13 @@ export function timeAgo (time) {
     return true
   }
 }
-// 把一维数组转成树 tool
-// data，要转换的数组
-// key, string类型是  数组中id,parentId的前缀
-// key, object类型时  格式为{id,parentId,order}
+/**
+ * @description: 把一维数组转成树
+ * @param {*} data 一维数组
+ * @param {*} key string类型是  数组中id,parentId的前缀，object类型时  格式为{id,parentId,order}
+ * @return {Array} tree
+ * @author: Lin_kangjing
+ */
 export function dataToTree (data, key) {
   if (!data.length) {
     return data

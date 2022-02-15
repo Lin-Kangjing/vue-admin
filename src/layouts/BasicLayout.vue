@@ -9,13 +9,13 @@
     :i18nRender="i18nRender"
     v-bind="settings"
   >
-
     <!-- 1.0.0+ 版本 pro-layout 提供 API，
           我们推荐使用这种方式进行 LOGO 和 title 自定义
     -->
     <template v-slot:menuHeaderRender>
       <div>
-        <logo-svg />
+        <!-- <logo-svg /> -->
+        <img src="~@/assets/logo.svg" class="logo" alt="logo">
         <h1>{{ title }}</h1>
       </div>
     </template>
@@ -31,9 +31,6 @@
     </template>
 
     <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
-      <div style="margin: 12px 0;">
-        This is SettingDrawer custom footer content.
-      </div>
     </setting-drawer>
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
@@ -47,7 +44,8 @@
 </template>
 
 <script>
-import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
+import { updateTheme, SettingDrawer } from '@ant-design-vue/pro-layout'
+// import SettingDrawer from '@@/SettingDrawer'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
@@ -55,15 +53,15 @@ import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mu
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
-import LogoSvg from '../assets/logo.svg?inline'
+// import LogoSvg from '../assets/logo.svg?inline'
 
 export default {
   name: 'BasicLayout',
   components: {
     SettingDrawer,
     RightContent,
-    GlobalFooter,
-    LogoSvg
+    GlobalFooter
+    // LogoSvg
   },
   data () {
     return {
@@ -90,8 +88,8 @@ export default {
         fixSiderbar: defaultSettings.fixSiderbar,
         colorWeak: defaultSettings.colorWeak,
 
-        hideHintAlert: false,
-        hideCopyButton: false
+        hideHintAlert: true,
+        hideCopyButton: true
       },
       // 媒体查询
       query: {},
@@ -175,4 +173,9 @@ export default {
 
 <style lang="less">
 @import "./BasicLayout.less";
+.ant-pro-sider-menu-logo .svg-icon.logo {
+    height: 32px;
+    width: 32px;
+    vertical-align: middle;
+}
 </style>

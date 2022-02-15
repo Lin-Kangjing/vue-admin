@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @FilePath: \DTSMv3\src\store\modules\app.js
+ * @Date: 2022-02-09 11:40:57
+ * @LastEditors: Lin_kangjing
+ * @LastEditTime: 2022-02-14 09:03:47
+ * @author: Lin_kangjing
+ */
 import storage from 'store'
 import {
   SIDEBAR_TYPE,
@@ -29,7 +37,7 @@ const app = {
     color: '',
     weak: false,
     multiTab: true,
-    lang: 'en-US',
+    lang: 'zh-CN',
     _antLocale: {}
   },
   mutations: {

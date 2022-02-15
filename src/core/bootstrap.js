@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @FilePath: \DTSMv3\src\core\bootstrap.js
+ * @Date: 2022-02-09 11:40:57
+ * @LastEditors: Lin_kangjing
+ * @LastEditTime: 2022-02-15 10:57:21
+ * @author: Lin_kangjing
+ */
 import store from '@/store'
 import storage from 'store'
 import {
@@ -23,6 +31,6 @@ export default function Initializer () {
   store.commit(TOGGLE_MULTI_TAB, storage.get(TOGGLE_MULTI_TAB, defaultSettings.multiTab))
   store.commit('SET_TOKEN', storage.get(ACCESS_TOKEN))
 
-  store.dispatch('setLang', storage.get(APP_LANGUAGE, 'en-US'))
+  store.dispatch('setLang', storage.get(APP_LANGUAGE, 'zh-CN'))
   // last step
 }

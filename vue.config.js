@@ -4,6 +4,7 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin')
 const GitRevision = new GitRevisionPlugin()
 const buildDate = JSON.stringify(new Date().toLocaleString())
 const createThemeColorReplacerPlugin = require('./config/plugin.config')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, dir)
@@ -58,25 +59,29 @@ const vueConfig = {
     config.resolve.alias.set('@', resolve('src'))
     config.resolve.alias.set('@@', resolve('src/components'))
 
-    const svgRule = config.module.rule('svg')
-    svgRule.uses.clear()
-    svgRule.exclude.add(resolve('src/assets/svgIcon/icons')).end()
-    svgRule
-      // 将svg icon转化成组件
-      .oneOf('inline')
-      .resourceQuery(/inline/)
-      .use('vue-svg-icon-loader')
-      .loader('vue-svg-icon-loader')
-      .end()
-      .end()
-      .oneOf('external')
-      .use('file-loader')
-      .loader('file-loader')
-      .options({
-        name: 'assets/[name].[hash:8].[ext]'
-      })
+    // const svgRule = config.module.rule('svg')
+    // svgRule.uses.clear()
+    // svgRule.exclude.add(resolve('src/assets/svgIcon/icons')).end()
+    // svgRule
+    //   // 将svg icon转化成组件
+    //   .oneOf('inline')
+    //   .resourceQuery(/inline/)
+    //   .use('vue-svg-icon-loader')
+    //   .loader('vue-svg-icon-loader')
+    //   .end()
+    //   .end()
+    //   .oneOf('external')
+    //   .use('file-loader')
+    //   .loader('file-loader')
+    //   .options({
+    //     name: 'assets/[name].[hash:8].[ext]'
+    //   })
 
     // svg-sprite-loader
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/assets/svgIcon/icons'))
+      .end()
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -98,6 +103,16 @@ const vueConfig = {
       })
       // 打包分析
       config.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin).end()
+      // gzip压缩
+      config.plugin('compressionPlugin').use(
+        // eslint-disable-next-line func-call-spacing
+        new CompressionWebpackPlugin
+        ({
+          test: /\.js$|\.html$|\.css/, // 匹配文件名
+          threshold: 10240, // 对超过10k的数据压缩
+          deleteOriginalAssets: false // 不删除源文件
+        })
+      )
     }
   },
 
